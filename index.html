@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body{
+            text-align: center;
+        }
         button{
             background-color: rgb(153, 185, 214);
             margin: auto;
@@ -14,20 +17,54 @@
             border-color: rgb(132, 176, 216);
             font-weight: 600;
             font-family: 'Courier New', Courier, monospace;
-            display: block;
-
         }
-        canvas{
-            display: block;
-            /* position: absolute; */
+
+        img{
+            border: 10px solid red;
+            margin: 200px 20px;
+            position: absolute;
+        }
+
+        .btnsDiv{
             margin: 10px auto;
+        }
+        div{
+            margin: 10px;
+        }
+        #startForm{
+            border: solid;
+            margin: 10px;
+            padding: 10px;
         }
     </style>
 </head>
 
 <body>
-    <canvas id="canvas"></canvas>
-    <button id="shuffleButton">Shuffle</button>
+    <form id="startForm">
+        <h1>Welcome :)</h1>
+        <h2>Please enter the following values to get started!</h2>
+        <div>
+            <label for="name">Name: </label>
+            <input type="text" id="name" required>
+        </div>
+        <div>
+            <label for="puzzleSize">Puzzle size: </label>
+            <input type="text" id="puzzleSize" placeholder="number between 2-10" min="2" max="10" required>
+        </div>
+        <div>
+            <label for="puzzleImage">Puzzle image: </label>
+            <input type="text" id="puzzleImage" placeholder="number between 1-5" min="1" max="5" required>
+        </div>
+        <button type="submit">Get Started !</button>
+    </form>
+    
+    <div id="mainDiv">   
+        <canvas id="canvas"></canvas>
+        <!-- <img src="./1.jpg" width="300" alt=""> -->
+        <div class="btnsDiv">
+            <button id="shuffleButton">Shuffle</button>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 

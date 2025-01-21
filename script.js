@@ -23,21 +23,42 @@ var board
 var tileImages = []
 var tileIDs = [] //Ids (col0, row0) in correct position = what we try to reach at the end
 var shuffledIds = [] //Ids in incorrect position, starting point
-
-//take input from user
-var count = ['2','3','4','5','6','7','8','9','10']
-let PuzzleColRows = prompt("Choose how many rows and cols you want, for 4x4 type 4 and so on:", "4");
-console.log(typeof(PuzzleColRows))
-if (PuzzleColRows == null || PuzzleColRows == "" || !count.includes(PuzzleColRows)) {
-    alert("Nope. that's not an option :) you'll continue with 3x3!")
-    PuzzleColRows = 3
-}
-
-let name = prompt("Your name too please :)");
-
+var puzzleSize
+var name
 var image = new Image()
-image.onload = cutImageIntoPieces
-image.src = 'cat.jpg' //if image exist, it will start loading.
+var mainDiv = document.getElementById('mainDiv')
+mainDiv.style.display = 'none'
+
+document.getElementById('startForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent the default form submission
+
+    // Get values from the form
+    name = document.getElementById('name').value;
+    puzzleSize = parseInt(document.getElementById('puzzleSize').value);
+    const puzzleImage = parseInt(document.getElementById('puzzleImage').value);
+
+    // Validate the form values
+    if (isNaN(puzzleSize) || puzzleSize < 2 || puzzleSize > 10) {
+        alert("Please enter a valid puzzle size between 2 and 10.");
+        return;
+    }
+    if (isNaN(puzzleImage) || puzzleImage < 1 || puzzleImage > 5) {
+        alert("Please enter a valid puzzle image number between 1 and 5.");
+        return;
+    }
+    var theForm = document.getElementById('startForm')
+    theForm.style.display = 'none'
+    mainDiv.style.display = 'block'
+
+    let imageSrc = `${puzzleImage}.jpg`;
+    image.onload = cutImageIntoPieces
+    image.src = imageSrc;
+    
+    var oImg = document.createElement("img");
+    oImg.setAttribute('width', '300px');
+    oImg.setAttribute('src', imageSrc);
+    mainDiv.appendChild(oImg)
+})
 
 document.getElementById('shuffleButton').addEventListener('click', function () {
     // You can call cutImageIntoPieces to re-shuffle the tiles when the user clicks the shuffle button
@@ -50,7 +71,7 @@ document.getElementById('shuffleButton').addEventListener('click', function () {
 
 function cutImageIntoPieces() {
     if (!board) {
-        board = new Board(this.naturalWidth, this.naturalHeight, PuzzleColRows); // Only create Board if it doesn't exist
+        board = new Board(this.naturalWidth, this.naturalHeight, puzzleSize); // Only create Board if it doesn't exist
     }
     canvas.width = board.width
     canvas.height = board.height
@@ -58,7 +79,7 @@ function cutImageIntoPieces() {
     canvas.addEventListener('click', move)
 
     canvas.style.border = "black 2px solid"
-    ctx.fillStyle = 'gray'
+    ctx.fillStyle = 'lightgray'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
 
     //logic to cut the image into multiple pieces
@@ -136,7 +157,6 @@ function drawAllTiles() {
         imgObj.src = imgURL
     }
 }
-
 function getRowColFromIndex(i) {
     let col = Math.floor(i / board.rowCols)
     let row = i % board.rowCols
