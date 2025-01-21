@@ -25,7 +25,7 @@ var tileIDs = [] //Ids (col0, row0) in correct position = what we try to reach a
 var shuffledIds = [] //Ids in incorrect position, starting point
 
 //take input from user
-var count = [2,3,4,5,6,7,8,9,10]
+var count = ['2','3','4','5','6','7','8','9','10']
 let PuzzleColRows = prompt("Choose how many rows and cols you want, for 4x4 type 4 and so on:", "4");
 console.log(typeof(PuzzleColRows))
 if (PuzzleColRows == null || PuzzleColRows == "" || !count.includes(PuzzleColRows)) {
