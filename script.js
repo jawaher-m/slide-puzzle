@@ -27,6 +27,7 @@ var puzzleSize
 var name
 var image = new Image()
 var mainDiv = document.getElementById('mainDiv')
+var container = document.getElementById('container')
 mainDiv.style.display = 'none'
 
 document.getElementById('startForm').addEventListener('submit', function (e) {
@@ -57,7 +58,7 @@ document.getElementById('startForm').addEventListener('submit', function (e) {
     var oImg = document.createElement("img");
     oImg.setAttribute('width', '300px');
     oImg.setAttribute('src', imageSrc);
-    mainDiv.appendChild(oImg)
+    container.appendChild(oImg)
 })
 
 document.getElementById('shuffleButton').addEventListener('click', function () {
